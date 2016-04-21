@@ -16,9 +16,17 @@ public class Plant {
 	
 	public Plant() {
 		name = "Cactus";
-		this.type = "plant";
+		this.setType("plant");
 		
 		size = "medium";
 		height = 8;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
