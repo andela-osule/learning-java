@@ -12,7 +12,7 @@ public class UserInput {
 		String line = input.nextLine();
 		// double value = input.nextDouble();
 		// int value = input.nextInt();
-
+		
 		// Print line of text
 		System.out.println("You entered: " + line);
 		input.close();
