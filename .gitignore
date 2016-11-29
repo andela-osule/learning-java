@@ -1,8 +1,7 @@
-bin
-*.bluej
 *.class
 *.ctxt
-.classpath
-.project
-.settings
-.DS_Store
+*.bluej
+*/data
+*/data2
+*/doc
+*/us_babynames
