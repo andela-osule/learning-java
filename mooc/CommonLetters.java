@@ -20,6 +20,16 @@ public class CommonLetters {
         return counts;
     }
     
+    public int maxIndex(int[] vals) {
+        int maxDex = 0;
+        for(int k=0; k < vals.length; k++) {
+            if(vals[k] > vals[maxDex]) {
+                maxDex = k;
+            }
+        }
+        return maxDex;
+    }
+    
     public void testCountFrequency() {
         int[] counts = countFrequency("Hi, do you want a lollipop today? I own many good flavors, but banana is outstanding.");
         

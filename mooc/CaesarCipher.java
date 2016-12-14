@@ -1,32 +1,36 @@
 import edu.duke.*;
 
 public class CaesarCipher {
-    public String encrypt(String input, int key) {
-        StringBuilder encrypted = new StringBuilder(input);
-        
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        
-        String shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
-        
-        for(int i = 0; i < encrypted.length(); i++ ) {
-            char currChar = encrypted.charAt(i);
+    private String alphabet;
+    private String shiftedAlphabet;
+    
+    public CaesarCipher(int key) {
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
+    }
+    
+    public String encrypt(String input) {
+        StringBuilder sb = new StringBuilder(input);
+  
+        for(int i = 0; i < sb.length(); i++ ) {
+            char currChar = sb.charAt(i);
             int idx = alphabet.indexOf(currChar);
             
             if(idx != -1) {
                 char newChar = shiftedAlphabet.charAt(idx);
-                encrypted.setCharAt(i, newChar);
+                sb.setCharAt(i, newChar);
             }
             
             idx = alphabet.indexOf(Character.toUpperCase(currChar));
             
             if(idx != -1 && Character.isLowerCase(currChar)) {
                 char newChar = shiftedAlphabet.charAt(idx);
-                encrypted.setCharAt(i, Character.toLowerCase(newChar));
+                sb.setCharAt(i, Character.toLowerCase(newChar));
             }
                 
         }
         
-        return encrypted.toString();
+        return sb.toString();
     }
     
     public String encryptTwoKeys(String input, int key1, int key2) {
@@ -66,22 +70,29 @@ public class CaesarCipher {
         return encrypted.toString();
     }
     
+    
     public void testCaesar() {
         int key = 17;
         FileResource fr = new FileResource();
         String message = fr.asString();
-        String encrypted = encrypt(message, key);
+        
+        CaesarCipher cc = new CaesarCipher(key);
+        String encrypted = cc.encrypt(message);
         System.out.println("key is " + key + "\n" + encrypted);
-        String decrypted = encrypt(encrypted, 26-key); 
+        
+        cc = new CaesarCipher(26-key);
+        String decrypted = cc.encrypt(encrypted); 
         System.out.println(decrypted);
     }
     
     public void testEncrypt() {
-        String encrypted = encrypt("At noon be in the conference room with your hat on for a surprise party. YELL LOUD!", 15);
+        CaesarCipher cc = new CaesarCipher(15);
+        String encrypted = cc.encrypt("At noon be in the conference room with your hat on for a surprise party. YELL LOUD!");
         
         System.out.println(encrypted);
         
-        String decrypted = encrypt(encrypted, 11);
+        cc = new CaesarCipher(11);
+        String decrypted = cc.encrypt(encrypted);
         System.out.println(decrypted);
         
     }
