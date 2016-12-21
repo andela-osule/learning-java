@@ -20,6 +20,7 @@ public class CodonCount {
             }
         }
         
+        System.out.println("Codons found at frame " + start + ": "+ map.size());
         for(String w : map.keySet()) {
             System.out.println(w + ": " + map.get(w));
         }
@@ -41,7 +42,7 @@ public class CodonCount {
     public void printCodonCounts(int start, int end) {
         for(String w : map.keySet()) {
             int count = map.get(w);
-            if(count <= start || count <= end) {
+            if(count >= start && count <= end) {
                 System.out.println(w + ": " + count);
             }
         } 
@@ -56,7 +57,8 @@ public class CodonCount {
             buildCodonMap(frame, dna);
             String common = getMostCommonCodon();
             System.out.println("Most common codon is: " + common + " with " + map.get(common));
-            printCodonCounts(1, 5);
+            System.out.println("Codons occur 7 times at frame "+frame+":");
+            printCodonCounts(7, 7);
         }
     
     }
