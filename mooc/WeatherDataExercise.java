@@ -3,7 +3,7 @@ import org.apache.commons.csv.*;
 import java.io.*;
 
 
-public class WeatherDataEx {
+public class WeatherDataExercise {
     
     public double averageTemperatureInFile(CSVParser parser) {
         double total = 0.0;
