@@ -1,7 +1,8 @@
 *.class
+*.log
 *.ctxt
 *.bluej
 */data
 */data2
-*/doc
+**/doc
 */us_babynames
