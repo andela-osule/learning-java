@@ -1,5 +1,6 @@
 
 import java.util.*;
+import java.util.regex.Pattern;
 import edu.duke.*;
 
 public class EarthQuakeClient {
@@ -96,15 +97,53 @@ public class EarthQuakeClient {
     
     public void quakesOfDepth() {
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         
         ArrayList<QuakeEntry> list = parser.read(source);
         System.out.println("# quakes read: " + list.size());
         
-        ArrayList<QuakeEntry> matchingDepth = filterByDepth(list, -10000.0, -5000.0);
+        ArrayList<QuakeEntry> matchingDepth = filterByDepth(list, -8000.0, -5000.0);
         for(QuakeEntry qe : matchingDepth) {
             System.out.println(qe.getInfo());
         }
         System.out.println("# quakes found matching depth: "+ matchingDepth.size());
     }
+    
+    
+    public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String where, String phrase) {
+         ArrayList<QuakeEntry> list = new ArrayList<QuakeEntry>();
+        
+        for(QuakeEntry qe : quakeData) {
+            String title = qe.getInfo();
+            if(where.equals("start") && Pattern.matches("^"+phrase+".*", title)) {
+                list.add(qe);
+            } else if(where.equals("end") && Pattern.matches(".*"+ phrase+"$", title)) {
+                list.add(qe);
+            }
+            else if(where.equals("any") && Pattern.matches(".*"+phrase+".*", title)) {
+                list.add(qe);
+            }
+        }
+        
+        return list;
+    }
+    
+    
+    public void quakesByPhrase() {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String source = "data/nov20quakedata.atom";
+        
+        ArrayList<QuakeEntry> list = parser.read(source);
+        System.out.println("# quakes read: " + list.size());
+        
+        ArrayList<QuakeEntry> matchingPhrase = filterByPhrase(list, "start", "Explosion");
+        for(QuakeEntry qe : matchingPhrase) {
+            System.out.println(qe.getInfo());
+        }
+        System.out.println("# quakes found matching phrase: "+ matchingPhrase.size());
+    
+    }
+    
+    
+    
 }
