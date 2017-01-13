@@ -1,10 +1,3 @@
-
-/**
- * Write a description of class MinMaxFilter here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class MinMagFilter implements Filter
 {
     private double magMin; 
@@ -16,5 +9,9 @@ public class MinMagFilter implements Filter
     public boolean satisfies(QuakeEntry qe) { 
         return qe.getMagnitude() >= magMin; 
     } 
+    
+    public String getName() {
+        return this.getClass().getName();
+    }
 
 }
