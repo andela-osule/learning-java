@@ -14,7 +14,7 @@ public class LargestQuakes {
         
         System.out.println("Quake with largest magnitude("+ magnitude +") is at index "+ index);
         
-        ArrayList<QuakeEntry> largest = getLargest(list, 5);
+        ArrayList<QuakeEntry> largest = getLargest(list, 50);
         
         System.out.println("Largest in order of magnitude");
         for(QuakeEntry qe: largest) {
