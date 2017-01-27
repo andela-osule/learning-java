@@ -1,12 +1,14 @@
 import java.util.Random;
 import java.util.ArrayList;
 
-public class MarkovOne {
+public class MarkovModel {
     private String myText;
     private Random myRandom;
+    private int linkLength;
     
-    public MarkovOne() {
+    public MarkovModel(int n) {
         myRandom = new Random();
+        linkLength = n;
     }
     
     public void setRandom(int seed){
@@ -22,16 +24,19 @@ public class MarkovOne {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        int index = myRandom.nextInt(myText.length()-1); // last character is invalid because it has no following character
-        String key = myText.substring(index, index+1);
+        int index = myRandom.nextInt(myText.length()-linkLength);
+        String key = myText.substring(index, index+linkLength);
         sb.append(key);
         
-        for(int k=1; k < numChars; k++){
+        for(int k=linkLength; k < numChars; k++){
             ArrayList<String> follows = getFollows(key);
+            if(follows.size() == 0) break;
             index = myRandom.nextInt(follows.size());
-            key = follows.get(index);
-           
-            sb.append(key);
+            String next = follows.get(index);
+            sb.append(next);
+            
+            key = key.substring(1) + next;
+            
         }
         
         return sb.toString();
